@@ -117,156 +117,7 @@ parcelRequire = (function (modules, cache, entry, globalName) {
   }
 
   return newRequire;
-})({"select/select.js":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.Select = void 0;
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
-
-function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
-
-function _classPrivateMethodGet(receiver, privateSet, fn) { if (!privateSet.has(receiver)) { throw new TypeError("attempted to get private field on non-instance"); } return fn; }
-
-var getTemplate = function getTemplate() {
-  var data = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
-  var placeHolder = arguments.length > 1 ? arguments[1] : undefined;
-  var selectedId = arguments.length > 2 ? arguments[2] : undefined;
-  var text = placeHolder !== null && placeHolder !== void 0 ? placeHolder : 'поле выбора'; //Шаблон для генерации динамического html-кода плагина
-
-  var items = data.map(function (item) {
-    var cls = '';
-
-    if (item.id === selectedId) {
-      text = item.value;
-      cls = 'selected';
-    }
-
-    return "\n        <div class=\"select__backdrop\" data-type=\"backdrop\"></div>\n        <li class=\"select__item ".concat(cls, "\" data-type=\"item\" data-id=\"").concat(item.id, "\">").concat(item.value, "</li>\n        ");
-  });
-  return "\n    <div class=\"select__input\" data-type=\"input\">\n        <span data-type=\"value\">".concat(text, "</span>\n        <i class=\"fa fa-chevron-circle-down\" data-type=\"arrow\"></i>\n    </div>\n    <div class=\"select__dropdown\">\n        <ul class=\"select__list\">\n            ").concat(items.join(''), "\n        </ul>\n    </div>");
-};
-
-var _render = new WeakSet();
-
-var _setup = new WeakSet();
-
-var Select = /*#__PURE__*/function () {
-  //Конструтор класс селект, созданного в index.js
-  function Select(selector, options) {
-    _classCallCheck(this, Select);
-
-    _setup.add(this);
-
-    _render.add(this);
-
-    //Устанавливаем опции
-    this.$el = document.querySelector(selector);
-    this.options = options;
-    this.selectedId = options.selectedId;
-
-    _classPrivateMethodGet(this, _render, _render2).call(this);
-
-    _classPrivateMethodGet(this, _setup, _setup2).call(this);
-  }
-
-  _createClass(Select, [{
-    key: "clickHandler",
-    //Обработчик кликов
-    value: function clickHandler(event) {
-      var type = event.target.dataset.type; //В зависимоти от датасета выполняется различная логика, реализуется работа плагина
-
-      if (type === 'input') {
-        this.toggle();
-      } else if (type === 'item') {
-        var id = event.target.dataset.id;
-        this.select(id);
-      } else if (type === 'backdrop') {
-        //Закрытие селекта пр нажатии на затемнение
-        this.close();
-      }
-    }
-  }, {
-    key: "select",
-    value: function select(id) {
-      this.selectedId = id;
-      this.$value.textContent = this.current.value;
-      this.$el.querySelectorAll('[data-type="item"]').forEach(function (el) {
-        el.classList.remove('selected');
-      });
-      this.$el.querySelector("[data-id=\"".concat(id, "\"]")).classList.add('selected'); //Callback, отображает в консоли выбранный объект с набором {id:'значение', value: 'текст'}
-
-      this.options.onSelect ? this.options.onSelect(this.current) : null;
-      this.close();
-    }
-  }, {
-    key: "toggle",
-    value: function toggle() {
-      this.isOpen ? this.close() : this.open();
-    }
-  }, {
-    key: "open",
-    value: function open() {
-      this.$el.classList.add('open');
-      this.$arrow.classList.remove('fa-chevron-circle-down');
-      this.$arrow.classList.add('fa-chevron-circle-up');
-    } //Этот метод закрывает селект
-
-  }, {
-    key: "close",
-    value: function close() {
-      this.$el.classList.remove('open');
-      this.$arrow.classList.add('fa-chevron-circle-down');
-      this.$arrow.classList.remove('fa-chevron-circle-up');
-    } //Этот метод уничтожает селект
-
-  }, {
-    key: "destoy",
-    value: function destoy() {
-      this.$el.removeEventListener('click', this.clickHandler);
-      this.$el.innerHTML = '';
-    }
-  }, {
-    key: "isOpen",
-    get: function get() {
-      return this.$el.classList.contains("open");
-    }
-  }, {
-    key: "current",
-    get: function get() {
-      var _this = this;
-
-      return this.options.data.find(function (item) {
-        return item.id === _this.selectedId;
-      });
-    }
-  }]);
-
-  return Select;
-}();
-
-exports.Select = Select;
-
-var _render2 = function _render2() {
-  var _this$options = this.options,
-      placeHolder = _this$options.placeHolder,
-      data = _this$options.data;
-  this.$el.classList.add('select');
-  this.$el.innerHTML = getTemplate(data, placeHolder, this.selectedId);
-};
-
-var _setup2 = function _setup2() {
-  this.clickHandler = this.clickHandler.bind(this);
-  this.$el.addEventListener('click', this.clickHandler);
-  this.$arrow = this.$el.querySelector('[data-type="arrow"]');
-  this.$value = this.$el.querySelector('[data-type="value"]');
-};
-},{}],"../../../AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/bundle-url.js":[function(require,module,exports) {
+})({"../../../AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/bundle-url.js":[function(require,module,exports) {
 var bundleURL = null;
 
 function getBundleURLCached() {
@@ -333,46 +184,7 @@ function reloadCSS() {
 }
 
 module.exports = reloadCSS;
-},{"./bundle-url":"../../../AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/bundle-url.js"}],"select/styles.scss":[function(require,module,exports) {
-var reloadCSS = require('_css_loader');
-
-module.hot.dispose(reloadCSS);
-module.hot.accept(reloadCSS);
-},{"_css_loader":"../../../AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/css-loader.js"}],"index.js":[function(require,module,exports) {
-"use strict";
-
-var _select = require("./select/select");
-
-require("./select/styles.scss");
-
-var select = new _select.Select('#select', {
-  placeHolder: 'Выберите элемент',
-  selectedId: '4',
-  data: [{
-    id: '1',
-    value: 'Значение 1'
-  }, {
-    id: '2',
-    value: 'Значение 2'
-  }, {
-    id: '3',
-    value: 'Значение 3'
-  }, {
-    id: '4',
-    value: 'Значение 4'
-  }, {
-    id: '5',
-    value: 'Значение 5'
-  }, {
-    id: '6',
-    value: 'Значение 6'
-  }],
-  onSelect: function onSelect(item) {
-    console.log('Выбранный элемент', item);
-  }
-});
-window.s = select;
-},{"./select/select":"select/select.js","./select/styles.scss":"select/styles.scss"}],"../../../AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+},{"./bundle-url":"../../../AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/bundle-url.js"}],"../../../AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -576,5 +388,5 @@ function hmrAcceptRun(bundle, id) {
     return true;
   }
 }
-},{}]},{},["../../../AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/hmr-runtime.js","index.js"], null)
-//# sourceMappingURL=/slectplug.e31bb0bc.js.map
+},{}]},{},["../../../AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/hmr-runtime.js"], null)
+//# sourceMappingURL=/index.js.map
